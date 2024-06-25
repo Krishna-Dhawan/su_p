@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import DynamicTable from './DynamicTable';
+import StaticTable from './StaticTable'
+import './App.css'
 
 function App() {
+  const [tableData, setTableData] = useState([]);
+  const handleTableData = (data) => {
+    setTableData(data);
+  };
+
+  const [isAdmin, setIsAdmin] = useState(true);
+  const handleSwitch = () => {
+    setIsAdmin(!isAdmin);
+  }
+
+  let buttonValue = isAdmin? "switch to user": "switch to admin";
+  let content = isAdmin? <DynamicTable onSubmit={handleTableData} />: <StaticTable data={tableData} />;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
+        <h1>Events</h1>
       </header>
+      {content}
+      <input type='button' value={buttonValue} onClick={handleSwitch} />
     </div>
   );
 }
