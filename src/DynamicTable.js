@@ -22,6 +22,11 @@ function DynamicTable({ onSubmit }){
       timeTemp.push(rows[i]['time']);
     }
     timeTemp.sort(function(a, b){return a - b});
+    let i = 0;
+    while (timeTemp[i] === ''){
+      timeTemp.shift();
+      timeTemp.push('');
+    }
     for (let i = 0; i < timeTemp.length; i++){
       let j = 0
       looop: {for (j; j < rows.length; j++){
